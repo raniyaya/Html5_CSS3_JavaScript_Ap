@@ -26,10 +26,12 @@ studentForm.addEventListener("submit", function (event) {
     const studentData = {
         name: stuFormData.get("name").trim(),
         studentNumber: stuFormData.get("studentNumber").trim(),
-        address: stuFormData.get("address").trim(),
-        phoneNumber: stuFormData.get("phoneNumber").trim(),
-        email: stuFormData.get("email").trim(),
-        dateOfBirth: stuFormData.get("dateOfBirth"),
+        detailRequest: {
+            address: stuFormData.get("address").trim(),
+            phoneNumber: stuFormData.get("phoneNumber").trim(),
+            email: stuFormData.get("email").trim(),
+            dateOfBirth: stuFormData.get("dateOfBirth") || null,
+        }
     };
 
     //유효성 체크하기
@@ -54,17 +56,17 @@ function validateStudent(student) {// 필수 필드 검사
         return false;
     }
 
-    if (!student.address) {
+    if (!student.detailRequest.address) {
         alert("주소를 입력해주세요.");
         return false;
     }
 
-    if (!student.phoneNumber) {
+    if (!student.detailRequest.phoneNumber) {
         alert("전화번호를 입력해주세요.");
         return false;
     }
 
-    if (!student.email) {
+    if (!student.detailRequest.email) {
         alert("이메일을 입력해주세요.");
         return false;
     }
@@ -78,13 +80,13 @@ function validateStudent(student) {// 필수 필드 검사
 
     // 전화번호 형식 검사
     const phonePattern = /^[0-9-\s]+$/;
-    if (!phonePattern.test(student.phoneNumber)) {
+    if (!phonePattern.test(student.detailRequest.phoneNumber)) {
         alert("올바른 전화번호 형식이 아닙니다.");
         return false;
     }
 
     // 이메일 형식 검사 (입력된 경우에만)
-    if (student.email && !isValidEmail(student.email)) {
+    if (student.detailRequest.email && !isValidEmail(student.detailRequest.email)) {
         alert("올바른 이메일 형식이 아닙니다.");
         return false;
     }
@@ -140,4 +142,4 @@ function renderStudentTable(students) {
         //<tbody>의 아래에 <tr>을 추가시켜 준다.
         studentTableBody.appendChild(row);
     });
-}
+}                                                                                                                                                                                                                                                                                                                                    
